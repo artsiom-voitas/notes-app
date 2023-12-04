@@ -31,11 +31,21 @@ export const notesSlice = createSlice({
         },
         removeNote: (state, action) => {
             state.notes = state.notes.filter((note) => note.id !== action.payload.id);
+        },
+        updateNote: (state, action) => {
+            const updatedNote = {
+                id: action.payload.id,
+                title: action.payload.title,
+                tag: action.payload.tag,
+                description: action.payload.description
+            };
+            const currentNoteIndex = state.notes.findIndex((note) => note.id === action.payload.id);
+            state.notes[currentNoteIndex] = updatedNote;
         }
     }
 });
 
-export const { addNote, removeNote } = notesSlice.actions;
+export const { addNote, removeNote, updateNote } = notesSlice.actions;
 
 export const selectNotes = (state: RootState) => state.notesReducer;
 
