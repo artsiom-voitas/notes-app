@@ -1,7 +1,8 @@
 'use client';
 
 import { useAppDispatch } from '@/redux/hooks';
-import { addNote } from '@/redux/notes/notesSlice';
+import { addNote, updateTags } from '@/redux/notes/notesSlice';
+import { findTags } from '@/services';
 import { Button, Input } from '@nextui-org/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
@@ -12,15 +13,19 @@ export default function CreateNote() {
 
     const dispatch = useAppDispatch();
     const unique_id = uuidv4();
-
     function createNote() {
         if (title.length >= 1) {
             dispatch(
                 addNote({
                     title: title,
                     id: unique_id,
-                    tag: '',
+                    tags: findTags(title),
                     description: ''
+                })
+            );
+            dispatch(
+                updateTags({
+                    tags: findTags(title)
                 })
             );
         }

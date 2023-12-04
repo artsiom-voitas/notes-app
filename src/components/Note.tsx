@@ -1,10 +1,11 @@
 import { useAppDispatch } from '@/redux/hooks';
-import { NoteState, removeNote, updateNote } from '@/redux/notes/notesSlice';
+import { NoteState, removeNote, updateNote, updateTags } from '@/redux/notes/notesSlice';
+import { findTags } from '@/services';
 import { Button, Card, CardBody, CardHeader, Divider, Textarea } from '@nextui-org/react';
 import { ArrowBigDown, ArrowBigUp, Trash } from 'lucide-react';
 import { useState } from 'react';
 
-export default function Note({ id, title, tag, description }: NoteState) {
+export default function Note({ id, title, tags, description }: NoteState) {
     const [newTitle, setNewTitle] = useState<string>(title);
     const [newDescription, setNewDescription] = useState<string>(description);
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -16,6 +17,11 @@ export default function Note({ id, title, tag, description }: NoteState) {
                 id: id
             })
         );
+        dispatch(
+            updateTags({
+                tags: findTags(title)
+            })
+        );
     }
 
     function toggleNote(): void {
@@ -23,12 +29,20 @@ export default function Note({ id, title, tag, description }: NoteState) {
     }
 
     function saveNote(): void {
+        if (newTitle.length === 0) {
+            setNewTitle(title);
+        }
         dispatch(
             updateNote({
                 title: newTitle,
                 id: id,
-                tag: tag,
+                tags: findTags(newTitle),
                 description: newDescription
+            })
+        );
+        dispatch(
+            updateTags({
+                tags: findTags(title)
             })
         );
     }

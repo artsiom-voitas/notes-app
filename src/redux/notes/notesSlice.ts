@@ -1,19 +1,22 @@
+import { removeDuplicatesFromArray } from '@/services';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 export interface NoteState {
     id: number;
     title: string;
-    tag: string;
+    tags: string[];
     description: string;
 }
 
 interface NotesState {
     notes: NoteState[];
+    tags: string[];
 }
 
 const initialState: NotesState = {
-    notes: []
+    notes: [],
+    tags: []
 };
 
 export const notesSlice = createSlice({
@@ -21,10 +24,10 @@ export const notesSlice = createSlice({
     initialState,
     reducers: {
         addNote: (state, action) => {
-            const newNote = {
+            const newNote: NoteState = {
                 id: action.payload.id,
                 title: action.payload.title,
-                tag: action.payload.tag,
+                tags: action.payload.tags,
                 description: action.payload.description
             };
             state.notes.unshift(newNote);
@@ -36,16 +39,21 @@ export const notesSlice = createSlice({
             const updatedNote = {
                 id: action.payload.id,
                 title: action.payload.title,
-                tag: action.payload.tag,
+                tags: action.payload.tags,
                 description: action.payload.description
             };
             const currentNoteIndex = state.notes.findIndex((note) => note.id === action.payload.id);
             state.notes[currentNoteIndex] = updatedNote;
+        },
+        updateTags: (state, action) => {
+            let currentTags: string[] = ['show all'];
+            state.notes.map((note) => note.tags.map((tag) => currentTags.push(tag)));
+            state.tags = removeDuplicatesFromArray(currentTags);
         }
     }
 });
 
-export const { addNote, removeNote, updateNote } = notesSlice.actions;
+export const { addNote, removeNote, updateNote, updateTags } = notesSlice.actions;
 
 export const selectNotes = (state: RootState) => state.notesReducer;
 
