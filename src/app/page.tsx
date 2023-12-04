@@ -1,12 +1,13 @@
-import { ThemeSwitcher } from '@/components/ThemeSwitcher';
+import CreateNote from '@/components/CreateNote';
+import Header from '@/components/Header';
+import Notes from '@/components/Notes';
 
 export default function Home() {
     return (
-        <main className="h-screen">
-            <ThemeSwitcher />
-            <div className="flex h-full flex-col items-center justify-center text-4xl font-bold">
-                Next.js 14 playground.
-            </div>
+        <main className="mx-2">
+            <Header />
+            <CreateNote />
+            <Notes />
         </main>
     );
 }
