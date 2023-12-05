@@ -5,6 +5,7 @@ import { Button, Card, CardBody, CardHeader, Divider, Textarea } from '@nextui-o
 import { motion } from 'framer-motion';
 import { ArrowBigDown, ArrowBigUp, Trash } from 'lucide-react';
 import { useState } from 'react';
+import { HighlightWithinTextarea } from 'react-highlight-within-textarea';
 
 export default function Note({ id, title, tags, description }: NoteState) {
     const [newTitle, setNewTitle] = useState<string>(title);
@@ -23,10 +24,6 @@ export default function Note({ id, title, tags, description }: NoteState) {
                 tags: findTags(title)
             })
         );
-    }
-
-    function toggleNote(): void {
-        setIsOpen(!isOpen);
     }
 
     function saveNote(): void {
@@ -62,17 +59,25 @@ export default function Note({ id, title, tags, description }: NoteState) {
                         ))}
                 </div>
                 <div className="flex w-full justify-between gap-3">
-                    <Textarea
-                        minRows={1}
-                        variant="underlined"
-                        value={newTitle}
-                        onFocusChange={saveNote}
-                        onValueChange={setNewTitle}
-                    />
+                    <div className="w-full max-w-[380px] max-[470px]:max-w-[290px] sm:max-w-[550px]">
+                        <HighlightWithinTextarea
+                            value={newTitle}
+                            highlight={[
+                                {
+                                    highlight: /([#])\w+/g,
+                                    className: 'bg-blue-400'
+                                }
+                            ]}
+                            onChange={(event) => {
+                                setNewTitle(event);
+                                saveNote();
+                            }}
+                        />
+                    </div>
                     <Button
                         isIconOnly
                         variant="light"
-                        onClick={toggleNote}>
+                        onClick={() => setIsOpen(!isOpen)}>
                         {isOpen ? <ArrowBigUp /> : <ArrowBigDown />}
                     </Button>
                 </div>
@@ -87,7 +92,7 @@ export default function Note({ id, title, tags, description }: NoteState) {
                         <Textarea
                             minRows={2}
                             variant="bordered"
-                            placeholder="Additional information.."
+                            placeholder="Additional information..."
                             value={newDescription}
                             onFocusChange={saveNote}
                             onValueChange={setNewDescription}
