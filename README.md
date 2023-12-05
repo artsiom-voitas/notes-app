@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-## Getting Started
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a target="_blank" href="https://github.com/artsiom-voitas/notes-app/">
+    <img src="public/next.svg" alt="Logo" height="40">
+  </a>
 
-First, run the development server:
+<h3 align="center">Notes App</h3>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+  <p align="center">
+    Store all your notes in one place.
+    <br />
+    <a href="https://notes-app-delta-six.vercel.app/"><strong>View Demo</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/artsiom-voitas/notes-app/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/artsiom-voitas/notes-app/issues">Request Feature</a>
+  </p>
+</div>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<!-- ABOUT THE PROJECT -->
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## About The Project
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<p align="center">
+  <img src="public/home-dark.png" width="320" alt="Main page screenshot (Dark)">
+  <img src="public/home-light.png" width="320" alt="Main page screenshot (Dark)">
+</p>
 
-## Learn More
+This application is built on React TypeScript with Redux Toolkit. With it, you can:
 
-To learn more about Next.js, take a look at the following resources:
+-   create notes
+-   edit notes
+-   sort notes by tags
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Built With
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+-   [![React][React.js]][React-url]
+-   [![Redux-Toolkit][Redux]][Redux-url]
+-   [![Typescript][Typescript]][Typescript-url]
+-   [![Next.js][Next.js]][Next.js-url]
 
-## Deploy on Vercel
+<!-- CONTACT -->
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contact
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Artsiom Voitas - [@artsiom_voitas](https://x.com/artsiom_voitas) - artsiom.voitas@gmail.com
+
+Project Link: [https://github.com/artsiom-voitas/notes-app](https://github.com/artsiom-voitas/notes-app)
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[contributors-shield]: https://img.shields.io/github/contributors/artsiom-voitas/notes-app.svg?style=for-the-badge
+[contributors-url]: https://github.com/artsiom-voitas/notes-app/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/artsiom-voitas/notes-app.svg?style=for-the-badge
+[forks-url]: https://github.com/artsiom-voitas/notes-app/network/members
+[stars-shield]: https://img.shields.io/github/stars/artsiom-voitas/notes-app.svg?style=for-the-badge
+[stars-url]: https://github.com/artsiom-voitas/notes-app/stargazers
+[issues-shield]: https://img.shields.io/github/issues/artsiom-voitas/notes-app.svg?style=for-the-badge
+[issues-url]: https://github.com/artsiom-voitas/notes-app/issues
+[license-shield]: https://img.shields.io/github/license/artsiom-voitas/notes-app.svg?style=for-the-badge
+[license-url]: https://github.com/artsiom-voitas/notes-app/blob/master/LICENSE
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/artsiom-voitas/
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Redux]: https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white
+[Redux-url]: redux-toolkit.js.org
+[Typescript]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
+[Typescript-url]: https://www.typescriptlang.org/
+[Next.js]: https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white
+[Next.js-url]: https://nextjs.org/
