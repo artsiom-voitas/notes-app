@@ -3,7 +3,7 @@
 import { useAppDispatch } from '@/redux/hooks';
 import { addNote, updateTags } from '@/redux/notes/notesSlice';
 import { findTags } from '@/services';
-import { Button, Input } from '@nextui-org/react';
+import { Button, Input, Link } from '@nextui-org/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -35,7 +35,7 @@ export default function CreateNote() {
         <Input
             type="text"
             color="primary"
-            label="Create note"
+            label="Create note (use # to add tags)"
             className="mt-4 flex min-w-[340px]"
             value={title}
             onValueChange={setTitle}
