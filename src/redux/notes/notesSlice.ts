@@ -46,7 +46,7 @@ export const notesSlice = createSlice({
             state.notes[currentNoteIndex] = updatedNote;
         },
         updateTags: (state, action) => {
-            let currentTags: string[] = ['show all'];
+            let currentTags: string[] = [];
             state.notes.map((note) => note.tags.map((tag) => currentTags.push(tag)));
             state.tags = removeDuplicatesFromArray(currentTags);
         }
