@@ -31,7 +31,7 @@ export default function FilterDropdown() {
         }
     }, [selectedValues, tagsQuery]);
 
-    if (notes.length === 0) {
+    if (notes.length === 0 || tags.length === 0) {
         return <></>;
     } else
         return (
