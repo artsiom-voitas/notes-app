@@ -9,7 +9,7 @@ import {
     DropdownSection,
     DropdownTrigger
 } from '@nextui-org/react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 
 export default function FilterDropdown() {
@@ -17,6 +17,7 @@ export default function FilterDropdown() {
     const notes = useAppSelector((state) => state.notesReducer.notes);
 
     const searchParams = useSearchParams();
+    const router = useRouter();
     const tagsQuery = searchParams.get('tags') || 'Show All';
 
     const currentFilters: string[] = tagsQuery.split('?');
@@ -57,28 +58,26 @@ export default function FilterDropdown() {
                                 key={'Show All'}
                                 textValue="Show All"
                                 color="default"
-                                href="/"
                                 onClick={() => {
                                     setSelectedKeys(['Show All']);
+                                    router.push(`/`);
                                 }}>
                                 Show All
                             </DropdownItem>
                         </DropdownSection>
-                        <DropdownSection showDivider>
+                        <DropdownSection>
                             {tags.map((tag) => (
                                 <DropdownItem
                                     key={tag}
                                     className="capitalize"
                                     textValue={tag}
+                                    onClick={() =>
+                                        router.push(`/?tags=${selectedValues.join('?')}`)
+                                    }
                                     color="default">
                                     {tag}
                                 </DropdownItem>
                             ))}
-                        </DropdownSection>
-                        <DropdownSection>
-                            <DropdownItem href={`/?tags=${selectedValues.join('?')}`}>
-                                Apply
-                            </DropdownItem>
                         </DropdownSection>
                     </DropdownMenu>
                 </Dropdown>
