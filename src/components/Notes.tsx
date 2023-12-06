@@ -4,6 +4,7 @@ import { useAppSelector } from '@/redux/hooks';
 import { NoteState } from '@/redux/notes/notesSlice';
 import { useSearchParams } from 'next/navigation';
 import Note from './Note';
+import { removeDuplicatesFromArray } from '@/services';
 
 export default function Notes() {
     const notes = useAppSelector((state) => state.notesReducer.notes);
@@ -19,7 +20,7 @@ export default function Notes() {
         tags.forEach((tag) =>
             filteredNotes.push(...notes.filter((note) => note.tags.includes(tag)))
         );
-        return filteredNotes;
+        return removeDuplicatesFromArray<NoteState>(filteredNotes);
     }
 
     if (filteredNotes.length < 1) {

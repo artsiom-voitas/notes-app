@@ -8,6 +8,6 @@ export function findTags(string: string): string[] {
     return result;
 }
 
-export function removeDuplicatesFromArray(arr: string[]): string[] {
+export function removeDuplicatesFromArray<T>(arr: T[]): T[] {
     return arr.filter((value, index) => arr.indexOf(value) === index);
 }
