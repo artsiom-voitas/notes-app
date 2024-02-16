@@ -1,12 +1,12 @@
 import { useAppDispatch } from '@/redux/hooks';
 import { NoteState, removeNote, updateNote, updateTags } from '@/redux/notes/notesSlice';
 import { findTags } from '@/services';
-import { Button, CardHeader, Divider, Textarea } from '@nextui-org/react';
+import { CardHeader, Divider, Textarea } from '@nextui-org/react';
 import { AnimatePresence } from 'framer-motion';
-import { Trash } from 'lucide-react';
 import { useState } from 'react';
 import { HighlightWithinTextarea } from 'react-highlight-within-textarea';
 import { AnimatedArrowButton, AnimatedCard, AnimatedCardBody } from './AnimatedComponents';
+import DeleteButton from './DeleteButton';
 
 export default function Note({ id, title, tags, description }: NoteState) {
     const [newTitle, setNewTitle] = useState<string>(title);
@@ -89,6 +89,7 @@ export default function Note({ id, title, tags, description }: NoteState) {
                     </div>
                     <AnimatedArrowButton
                         onClick={() => setIsOpen(!isOpen)}
+                        onKeyDown={() => setIsOpen(!isOpen)}
                         isOpen={isOpen}
                     />
                 </div>
@@ -106,13 +107,10 @@ export default function Note({ id, title, tags, description }: NoteState) {
                                 onFocusChange={saveNote}
                                 onValueChange={setNewDescription}
                             />
-                            <Button
-                                isIconOnly
-                                variant="light"
-                                className="hover:text-red-600"
-                                onClick={deleteNote}>
-                                <Trash />
-                            </Button>
+                            <DeleteButton
+                                onClick={deleteNote}
+                                onKeyDown={deleteNote}
+                            />
                         </AnimatedCardBody>
                     </>
                 )}
