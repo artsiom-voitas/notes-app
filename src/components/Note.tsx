@@ -1,16 +1,18 @@
 import { useAppDispatch } from '@/redux/hooks';
 import { NoteState, removeNote, updateNote, updateTags } from '@/redux/notes/notesSlice';
 import { findTags } from '@/services';
-import { Button, Card, CardBody, CardHeader, Divider, Textarea } from '@nextui-org/react';
-import { motion } from 'framer-motion';
-import { ArrowBigDown, ArrowBigUp, Trash } from 'lucide-react';
+import { CardHeader, Divider, Textarea } from '@nextui-org/react';
+import { AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { HighlightWithinTextarea } from 'react-highlight-within-textarea';
+import { AnimatedArrowButton, AnimatedCard, AnimatedCardBody } from './AnimatedComponents';
+import DeleteButton from './DeleteButton';
 
 export default function Note({ id, title, tags, description }: NoteState) {
     const [newTitle, setNewTitle] = useState<string>(title);
     const [newDescription, setNewDescription] = useState<string>(description);
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isEditingTitle, setIsEditingTitle] = useState<boolean>(false);
     const dispatch = useAppDispatch();
 
     function deleteNote(): void {
@@ -46,7 +48,7 @@ export default function Note({ id, title, tags, description }: NoteState) {
     }
 
     return (
-        <Card className="w-full max-w-[700px]">
+        <AnimatedCard>
             <CardHeader className="flex flex-col items-start gap-1">
                 <div className="flex gap-3">
                     {tags.length > 0 &&
@@ -59,56 +61,60 @@ export default function Note({ id, title, tags, description }: NoteState) {
                         ))}
                 </div>
                 <div className="flex w-full justify-between gap-3">
-                    <div className="w-full max-w-[380px] max-[470px]:max-w-[290px] sm:max-w-[550px]">
-                        <HighlightWithinTextarea
-                            value={newTitle}
-                            highlight={[
-                                {
-                                    highlight: /([#])\w+/g,
-                                    className: 'bg-blue-400'
-                                }
-                            ]}
-                            onChange={(event) => {
-                                setNewTitle(event);
-                                saveNote();
-                            }}
-                        />
+                    <div
+                        className="w-full max-w-[380px] max-[470px]:max-w-[290px] sm:max-w-[550px]"
+                        onClick={() => {
+                            setIsEditingTitle(true);
+                        }}>
+                        {isEditingTitle ? (
+                            <HighlightWithinTextarea
+                                value={newTitle}
+                                highlight={[
+                                    {
+                                        highlight: /([#])\w+/g,
+                                        className: 'bg-blue-400'
+                                    }
+                                ]}
+                                onBlur={() => {
+                                    setIsEditingTitle(false);
+                                    saveNote();
+                                }}
+                                onChange={(event) => {
+                                    setNewTitle(event);
+                                }}
+                            />
+                        ) : (
+                            <div>{title}</div>
+                        )}
                     </div>
-                    <Button
-                        isIconOnly
-                        variant="light"
-                        onClick={() => setIsOpen(!isOpen)}>
-                        {isOpen ? <ArrowBigUp /> : <ArrowBigDown />}
-                    </Button>
+                    <AnimatedArrowButton
+                        onClick={() => setIsOpen(!isOpen)}
+                        onKeyDown={() => setIsOpen(!isOpen)}
+                        isOpen={isOpen}
+                    />
                 </div>
             </CardHeader>
-            {isOpen ? (
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}>
-                    <Divider />
-                    <CardBody className="flex flex-row justify-between gap-3">
-                        <Textarea
-                            minRows={2}
-                            variant="bordered"
-                            placeholder="Additional information..."
-                            value={newDescription}
-                            onFocusChange={saveNote}
-                            onValueChange={setNewDescription}
-                        />
-                        <Button
-                            isIconOnly
-                            variant="light"
-                            className="hover:text-red-600"
-                            onClick={deleteNote}>
-                            <Trash />
-                        </Button>
-                    </CardBody>
-                </motion.div>
-            ) : (
-                <></>
-            )}
-        </Card>
+            <AnimatePresence>
+                {isOpen && (
+                    <>
+                        <Divider />
+                        <AnimatedCardBody>
+                            <Textarea
+                                minRows={1}
+                                variant="underlined"
+                                placeholder="Description..."
+                                value={newDescription}
+                                onFocusChange={saveNote}
+                                onValueChange={setNewDescription}
+                            />
+                            <DeleteButton
+                                onClick={deleteNote}
+                                onKeyDown={deleteNote}
+                            />
+                        </AnimatedCardBody>
+                    </>
+                )}
+            </AnimatePresence>
+        </AnimatedCard>
     );
 }

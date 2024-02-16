@@ -5,7 +5,7 @@ import { addNote, updateTags } from '@/redux/notes/notesSlice';
 import { findTags } from '@/services';
 import { Button, Input } from '@nextui-org/react';
 import { Plus } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function CreateNote() {
@@ -13,6 +13,13 @@ export default function CreateNote() {
 
     const dispatch = useAppDispatch();
     const unique_id = uuidv4();
+
+    function onEnterDown(e: KeyboardEvent) {
+        if (e.key === 'Enter') {
+            return createNote();
+        }
+    }
+
     function createNote() {
         if (title.length >= 1) {
             dispatch(
@@ -31,6 +38,12 @@ export default function CreateNote() {
         }
         setTitle('');
     }
+
+    useEffect(() => {
+        document.addEventListener('keydown', onEnterDown);
+        return () => document.removeEventListener('keydown', onEnterDown);
+    });
+
     return (
         <Input
             type="text"

@@ -27,7 +27,7 @@ export default function Notes() {
         return <></>;
     } else {
         return (
-            <div className="mt-4 flex flex-col items-center justify-center gap-3">
+            <div className="mb-6 mt-4 flex flex-col items-center justify-center gap-3">
                 {filteredNotes.map((note) => (
                     <Note
                         key={note.id}
