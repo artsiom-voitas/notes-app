@@ -11,7 +11,7 @@ export default function AnimatedCardBody({ children }: { children: React.ReactNo
                 y: 0
             }}
             exit={{ y: '-20%', opacity: 0, height: 0 }}
-            transition={{ duration: 0.6 }}>
+            transition={{ duration: 0.15 }}>
             <CardBody className="flex flex-row justify-between gap-3">{children}</CardBody>
         </motion.div>
     );

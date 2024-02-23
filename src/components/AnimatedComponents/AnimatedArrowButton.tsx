@@ -18,7 +18,7 @@ const AnimatedArrowButton = memo(function AnimatedArrowButton({
             isIconOnly
             variant="light"
             animate={{ rotate: isOpen ? -180 : 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.15 }}
             onClick={onClick}
             onKeyDown={(e) => {
                 e.key === 'Enter' && onKeyDown(e);
